@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<project name="BillingProject" default="all">
+<target name="all" depends="clean,compile,build-war,copy-war"/>
+	<property file="build.properties" />
+	<property name="build.dir" value="build/classes">
+		  </property>
+	<property name="lib.dir" value="WebContent\WEB-INF\lib">
+	
+		</property>
+	<property name="web.xml" value="WebContent/WEB-INF/web.xml">
+		
+			</property>
+		<property name="deploy.home"    value="C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps"> </property>	
+		
+	
+	
+	
+	<target name="info">
+		<echo>Welcome to Build.xml!</echo>
+	</target>
+
+	<target name="clean" description="Clean output directories">
+		<echo>${build.dir}</echo>
+		<delete dir="${build.dir}">
+
+
+		</delete>
+	</target>
+
+	<target name="compile">
+
+		<mkdir dir="${build.dir}" />
+		<javac srcdir="src" destdir="${build.dir}">
+			<classpath>
+				<fileset dir="${lib.dir}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="jar" depends="compile">
+		<mkdir dir="FinalProjectJar" />
+		<jar destfile="FinalProjectJar/${ant.project.name}.jar" basedir="${build.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="${main-class}" />
+			</manifest>
+			<zipgroupfileset dir="${lib.dir}" includes="**/*.jar" />
+		</jar>
+
+
+
+
+	</target>
+	<target name="build-war">
+		<war destfile="${ant.project.name}.war" webxml="${web.xml}">
+
+			<fileset dir="WebContent">
+				<include name="**/*.*" />
+			</fileset>
+
+			<lib dir="${lib.dir}">
+
+			</lib>
+
+			<classes dir="${build.dir}" />
+
+		</war>
+	</target>
+	
+	
+	<target name="copy-war">
+		 <copy file="${ant.project.name}.war" todir="${deploy.home}"/>
+	</target>
+</project>
