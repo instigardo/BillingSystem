@@ -56,30 +56,18 @@ public class SecServlet extends HttpServlet {
 		String date1=request.getParameter("date");	
 		portfolioDateStore pds=new portfolioDateStore();
 		pds.store(portfolio, date1);
-		//date1=d1.toString();
-	//	SQLHelper sqlHelp=new SQLHelper();
-	/*	AccountParser aparser=new AccountParser();
-		aparser.account();
-		int accno=aparser.getTotalAccountNumber();
-		System.out.println(aparser.getTotalAccountNumber());*/
-
-		
-
 		JsonObject value=Json.createObjectBuilder().add("portfolio",portfolio).add("date",date1).build();
 		String result=value.toString();
 		System.out.println(result);
 		
-		try {
-			CustomerInfoExtractor cie=new CustomerInfoExtractor();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		System.out.println("dsda");
-	/*	String sql= 1011+",to_date('"+ date1 + "','DD/MON/YYYY')," + accno + ",'" + portfolio + "',"+"C";
-		sqlHelp.INSERT("bill_cycle_summary",sql);*/
+			try {
+				CustomerInfoExtractor cie=new CustomerInfoExtractor();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	
-
+		System.out.println("dsda");
 
 		PrintWriter out=response.getWriter();
 		HttpSession session=request.getSession();		

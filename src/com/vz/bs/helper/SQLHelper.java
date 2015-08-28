@@ -9,6 +9,7 @@ import java.sql.Statement;
 
 public class SQLHelper {
 	Connection con;
+	int r = 0;
 
 	public SQLHelper() {
 		ConnectionGetter cg = new ConnectionGetter();
@@ -41,6 +42,7 @@ public class SQLHelper {
 		try {
 			ps = con.prepareStatement(s);
 			int i = ps.executeUpdate();
+			r = i;
 			return i;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -55,6 +57,7 @@ public class SQLHelper {
 		try {
 			ps = con.prepareStatement(s);
 			int i = ps.executeUpdate();
+			r = i;
 			return i;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -68,6 +71,7 @@ public class SQLHelper {
 		try {
 			ps = con.prepareStatement(s);
 			int i = ps.executeUpdate();
+			r = i;
 			return i;
 		} catch (SQLException e) {
 			e.printStackTrace();

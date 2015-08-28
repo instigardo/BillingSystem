@@ -5,6 +5,7 @@ import java.io.StringReader;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import javax.servlet.http.HttpServletResponse;
 
 import com.vz.bs.puller.AccountJsonGet;
 
@@ -22,6 +23,11 @@ public class AccountParser {
 		Object[] accountArray;
 		AccountJsonGet accountJsonGet = new AccountJsonGet();
 		String accountJson = accountJsonGet.JsonGet();
+		if(accountJson.toLowerCase().equals("null"))
+		{
+
+			return null;
+		}else{
 		JsonReader reader=Json.createReader(new StringReader(accountJson));
 		JsonObject json=reader.readObject();
 		totalAccountNumber=Integer.parseInt(json.getString("totalNumOfAcc"));
@@ -32,7 +38,9 @@ public class AccountParser {
 			accounts[i]=accountArray[i].toString();
 			accounts[i]=accounts[i].replace('"', ' ').trim();
 		}
+		
 		return accounts;
+		}
 	}
 	
 	public static void main(String[] args) {

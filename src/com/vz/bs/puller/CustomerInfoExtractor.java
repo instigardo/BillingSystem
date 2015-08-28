@@ -30,6 +30,9 @@ public class CustomerInfoExtractor {
 	public CustomerInfoExtractor() throws SQLException {
 		SQLHelper sqlHelp = new SQLHelper();
 		AccountParser ap = new AccountParser();
+		if(ap.account().equals(null)){
+			
+		}else{
 		String arr[] = ap.account();
 		int tAccounts=ap.getTotalAccountNumber();
 		System.out.println(arr.length);
@@ -138,6 +141,7 @@ infoArray[10] = re.getTotalAmount() + "";
 			billId=rs1.getInt("last_number");
 			}
 		sqlHelp.UPDATE("bill_cycle_summary", "STATUS_P_C_F='C'", "bill_cycle_id="+billId);
+		}
 	}
 
 	
