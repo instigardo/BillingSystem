@@ -28,7 +28,7 @@ public class CostJsonGet {
 	// @Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String costGet() {
-		id="b1001";
+		//id="b1001";
 		ClientConfig config = new ClientConfig();
 		Client client = ClientBuilder.newClient(config);
 		WebTarget target = client.target("http://localhost:8080/PCatServiceCatalog")

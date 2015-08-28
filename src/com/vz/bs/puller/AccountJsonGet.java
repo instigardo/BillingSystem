@@ -29,10 +29,10 @@ public class AccountJsonGet {
 		WebTarget target = client.target("http://localhost:8080/OrderManagement")
 				.path("rest").path("om").path("billingAccountPull").queryParam("billingDate", billingDate).queryParam("portfolio", portfolio);
 		// getting String data
-//		jsonString = target.request(MediaType.TEXT_PLAIN).get(String.class);
+		jsonString = target.request(MediaType.TEXT_PLAIN).get(String.class);
 		//System.out.println(jsonString);
 		
-		jsonString="{\"accountNo\":[\"501\",\"502\",\"503\"],\"totalNumOfAcc\":\"3\"}";	
+//		jsonString="{\"accountNo\":[\"501\",\"502\",\"503\"],\"totalNumOfAcc\":\"3\"}";	
 		return jsonString;
 	}
 

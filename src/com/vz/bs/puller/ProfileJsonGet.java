@@ -28,7 +28,7 @@ public class ProfileJsonGet {
 	// @Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String JsonGet() {
-		accno="501";
+		//accno="501";
 		ClientConfig config = new ClientConfig();
 		Client client = ClientBuilder.newClient(config);
 		WebTarget target = client.target("http://localhost:8080/OrderManagement")
