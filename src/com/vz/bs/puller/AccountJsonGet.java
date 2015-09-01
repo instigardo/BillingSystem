@@ -30,7 +30,7 @@ public class AccountJsonGet {
 				.path("rest").path("om").path("billingAccountPull").queryParam("billingDate", billingDate).queryParam("portfolio", portfolio);
 		// getting String data
 		jsonString = target.request(MediaType.TEXT_PLAIN).get(String.class);
-		//System.out.println(jsonString);
+		System.out.println(jsonString);
 		
 //		jsonString="{\"accountNo\":[\"501\",\"502\",\"503\"],\"totalNumOfAcc\":\"3\"}";	
 		return jsonString;

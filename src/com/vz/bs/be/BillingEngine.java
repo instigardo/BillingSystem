@@ -33,7 +33,7 @@ public class BillingEngine {
 	public String getBillString() {
 		return billString;
 	}
-	int accountNumber;
+	String accountNumber;
 	public void calculateBill() {
 
 		SQLHelper sqlHelp = new SQLHelper();		
@@ -73,7 +73,7 @@ public class BillingEngine {
 		}
 	}
 
-	public void setAccountNumber(int accountNumber) {
+	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 

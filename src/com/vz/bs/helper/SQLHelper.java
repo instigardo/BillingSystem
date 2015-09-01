@@ -16,6 +16,20 @@ public class SQLHelper {
 		con = cg.getConnection();
 	}
 
+	public int EXEC(String pName, String parameters) {
+		String s = "exec " + pName + " ( " + parameters + ")";
+		//System.out.println(s);
+		try {
+			Statement st = con.createStatement();
+			int i = st.executeUpdate(s);
+			return i;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	
 	public ResultSet SELECT(String tName, String cName, String where) {
 		if (where == null || where == "") {
 			where = "1";

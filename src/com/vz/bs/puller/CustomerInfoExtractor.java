@@ -1,6 +1,7 @@
 package com.vz.bs.puller;
 
 import java.io.StringReader;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -51,7 +52,7 @@ public class CustomerInfoExtractor {
 			accno=arr[i];
 			System.out.println(accno);
 			BillingEngine be = new BillingEngine();
-			be.setAccountNumber(Integer.parseInt(arr[i]));
+			be.setAccountNumber(arr[i]);
 			be.calculateBill();
 			
 			RatingEngine re = new RatingEngine();
@@ -105,15 +106,10 @@ infoArray[9] = re.getTaxAmount() + "";
 infoArray[10] = re.getTotalAmount() + "";
 
 
-
 			if (be.isNewCustomer()) {
-				sqlHelp.INSERT("bill_cycle_details", Integer.parseInt(infoArray[3]) + ",'" 
-			+ jsonString + "'," + " 'P' ,"+ Double.parseDouble(infoArray[10]) + ",to_date(sysdate,'DD/MON/YYYY'),null,null");
+				sqlHelp.EXEC("bill_details", infoArray[3] + ",'"+ jsonString + "'," + " null ,"+ Double.parseDouble(infoArray[10]) + ",to_date(sysdate,'DD/MON/YYYY'),null,null");
 			} else {
-				sqlHelp.UPDATE("bill_cycle_details", "bill_input='" + jsonString
-						+ "', " + "bill_total_amount=" + Double.parseDouble((infoArray[10])) + ", "
-						+ "date_ts=to_date(sysdate,'DD/MON/YYYY')", "account_num="+ Integer.parseInt(infoArray[3]));
-
+				sqlHelp.EXEC("bill_details_update",  infoArray[3]+",'" + jsonString+ "'," + Double.parseDouble((infoArray[10])) + ", to_date(sysdate,'DD/MON/YYYY')");
 			}
 			
 			BillFormatter billFormatter = new BillFormatter(infoArray);
@@ -127,8 +123,7 @@ infoArray[10] = re.getTotalAmount() + "";
 				pBill=rs.getString("bill_generated");
 				pBill1=rs.getString("previous_bill_1");
 			}
-				
-			sqlHelp.UPDATE("bill_cycle_details", "bill_generated='"+billString+"',"+"previous_bill_1='"+pBill+"',"+"previous_bill_2='"+pBill1+"'", "account_num="+infoArray[3]);
+			sqlHelp.EXEC("bill_cycle_update1", infoArray[3]+",'"+billString+"',"+"'"+pBill+"',"+"'"+pBill1+"'");
 
 			/* update bill amounts in payment_summary table */
 			sqlHelp.UPDATE("payments_summary", "billed_amount="+infoArray[10]+",billing_date='"+billingDate+"',amount_received="+0, "account_number="+accno);

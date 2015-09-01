@@ -11,7 +11,7 @@ import org.glassfish.jersey.client.ClientConfig;
 
 @Path("/profilegetter")
 public class ProfileJsonGet {
-	String accno;
+	static String accno;
 
 	public void setAccno(String accno) {
 		System.out.println(accno);

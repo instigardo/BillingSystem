@@ -15,7 +15,7 @@ public class UpdatePaymentSelfService {
 	public String sendFinance(@QueryParam("accountNumber") String accountNumber,@QueryParam("amount") String amount,@QueryParam("paymentdate") String payday) {
 		SQLHelper sql=new SQLHelper();
 		String selfService="Payment Updated";
-		sql.UPDATE("payments_summary", "amount_received='"+amount+"',"+"payment_date='"+payday, "account_number="+accountNumber);
+		sql.UPDATE("payments_summary", "amount_received='"+amount+"',"+"payment_date='"+payday+"'", "account_number="+accountNumber);
 		return selfService;
 	}
 }

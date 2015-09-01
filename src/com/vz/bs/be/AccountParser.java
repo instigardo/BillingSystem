@@ -23,7 +23,7 @@ public class AccountParser {
 		Object[] accountArray;
 		AccountJsonGet accountJsonGet = new AccountJsonGet();
 		String accountJson = accountJsonGet.JsonGet();
-		if(accountJson.toLowerCase().equals("null"))
+		if(accountJson.toLowerCase().equals("null")||accountJson.equals(null))
 		{
 
 			return null;
