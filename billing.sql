@@ -1,6 +1,8 @@
 --------------------------------------------------------
 --  File created - Friday-August-28-2015   
 --------------------------------------------------------
+
+
 --------------------------------------------------------
 --  DDL for Sequence SEQ_1
 --------------------------------------------------------
@@ -96,3 +98,28 @@ SET DEFINE OFF;
 --------------------------------------------------------
 
   ALTER TABLE "HR"."BILL_CYCLE_SUMMARY" MODIFY ("BILL_CYCLE_ID" NOT NULL ENABLE);
+
+--------------------------------------------------------
+--  DDL for PROCEDURES
+--------------------------------------------------------
+
+
+create or replace procedure BILL_DETAILS(P_ACCOUNT_NUM in varchar2,P_BILL_INPUT in varchar2,P_BILL_GENERATED in varchar2,P_BILL_TOTAL_AMOUNT in FLOAT,P_DATE_TS IN DATE,P_PREVIOUS_BILL_1 IN VARCHAR2,P_PREVIOUS_BILL_2 IN VARCHAR2)as
+
+    begin
+    insert into BILL_CYCLE_DETAILS values(P_ACCOUNT_NUM,P_BILL_INPUT,P_BILL_GENERATED,P_BILL_TOTAL_AMOUNT,P_DATE_TS,P_PREVIOUS_BILL_1,P_PREVIOUS_BILL_2);
+    end;
+
+create or replace procedure BILL_DETAILS_UPDATE(P_ACCOUNT_NUM in varchar2,P_BILL_INPUT in varchar2,P_BILL_TOTAL_AMOUNT in FLOAT,P_DATE_TS IN DATE)as
+
+    begin
+    update BILL_CYCLE_DETAILS set BILL_INPUT=P_BILL_INPUT, BILL_TOTAL_AMOUNT=P_BILL_TOTAL_AMOUNT, DATE_TS=P_DATE_TS where ACCOUNT_NUM=P_ACCOUNT_NUM;
+    end;
+
+create or replace procedure BILL_DETAILS_UPDATE1(P_ACCOUNT_NUM in varchar2,P_BILL_GENERATED in varchar2,P_PREVIOUS_BILL_1 IN VARCHAR2,P_PREVIOUS_BILL_2 IN VARCHAR2)as
+
+    begin
+    update BILL_CYCLE_DETAILS set BILL_GENERATED=P_BILL_GENERATED, PREVIOUS_BILL_1=P_PREVIOUS_BILL_1, PREVIOUS_BILL_2=P_PREVIOUS_BILL_2 where ACCOUNT_NUM=P_ACCOUNT_NUM;
+    end;
+
+
