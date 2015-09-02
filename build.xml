@@ -1,75 +1,59 @@
 <?xml version="1.0"?>
-<project name="BillingSystem" default="all">
-<target name="all" depends="clean,compile,build-war,copy-war"/>
+<project name="BillingSystem" default="all" basedir=".">
+	<property environment="env"/>
 	<property file="build.properties" />
-	<property name="build.dir" value="build/classes">
-		  </property>
-	<property name="lib.dir" value="WebContent\WEB-INF\lib">
-	
-		</property>
-	<property name="web.xml" value="WebContent/WEB-INF/web.xml">
-		
-			</property>
-		<property name="deploy.home"    value="C:\apache-tomcat-7.0.64\webapps"> </property>	
-		
-	
-	
 	
 	<target name="info">
-		<echo>Welcome to Build.xml!</echo>
+		<echo>Jenkins Demo  - Welcome to Apache Ant!</echo>
 	</target>
-
 	<target name="clean" description="Clean output directories">
-		<echo>${build.dir}</echo>
-		<delete dir="${build.dir}">
-
-
+		<delete>
+			<fileset dir="${build.dir}">
+				<include name="**/*.class" />
+			</fileset>
 		</delete>
 	</target>
 
-	<target name="compile">
 
+	<target name="compile" description="Compile source tree java files">
+		<echo message="creating dir" />
 		<mkdir dir="${build.dir}" />
-		<javac srcdir="src" destdir="${build.dir}">
+		<echo message="finished " />
+		<javac destdir="${build.dir}">
+			<src path="${src.dir}" />
 			<classpath>
 				<fileset dir="${lib.dir}">
-					<include name="**/*.jar" />
+					<include name="*.jar" />
+				</fileset>
+				<fileset dir="${tomcat.classpath}">
+					<include name="*.jar" />
 				</fileset>
 			</classpath>
 		</javac>
 	</target>
 
-	<target name="jar" depends="compile">
-		<mkdir dir="FinalProjectJar" />
-		<jar destfile="FinalProjectJar/${ant.project.name}.jar" basedir="${build.dir}">
-			<manifest>
-				<attribute name="Main-Class" value="${main-class}" />
-			</manifest>
-			<zipgroupfileset dir="${lib.dir}" includes="**/*.jar" />
-		</jar>
 
-
-
-
-	</target>
 	<target name="build-war">
-		<war destfile="${ant.project.name}.war" webxml="${web.xml}">
-
-			<fileset dir="WebContent">
+		<echo message="buildwar" />
+		<war destfile="${projectName}.war" webxml="${web.dir}/WEB-INF/web.xml">
+			<fileset dir="${web.dir}">
 				<include name="**/*.*" />
 			</fileset>
 
 			<lib dir="${lib.dir}">
-
 			</lib>
 
 			<classes dir="${build.dir}" />
-
 		</war>
+
 	</target>
-	
-	
-	<target name="copy-war">
-		 <copy file="${ant.project.name}.war" todir="${deploy.home}"/>
+	<target name="deploy">
+		<copy file="${projectName}.war" tofile="${deploy.dir}/${projectName}.war" />
 	</target>
+
+	<!-- Default, run this -->
+	<target name="all" depends="clean, compile, build-war,deploy" />
+
+
+
 </project>
