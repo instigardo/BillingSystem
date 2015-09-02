@@ -10,7 +10,7 @@
 	<property name="web.xml" value="WebContent/WEB-INF/web.xml">
 		
 			</property>
-		<property name="deploy.home"    value="C:\Program Files (x86)\Apache Software Foundation\Tomcat 7.0\webapps"> </property>	
+		<property name="deploy.home"    value="C:\apache-tomcat-7.0.64\webapps"> </property>	
 		
 	
 	
