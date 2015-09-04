@@ -8,6 +8,7 @@ import javax.json.JsonReader;
 import javax.servlet.http.HttpServletResponse;
 
 import com.vz.bs.puller.AccountJsonGet;
+import com.vz.bs.puller.portfolioDateStore;
 
 
 
@@ -20,14 +21,18 @@ public class AccountParser {
 	}
 
 	public String[] account() {
+		portfolioDateStore pds=new portfolioDateStore();
 		Object[] accountArray;
 		AccountJsonGet accountJsonGet = new AccountJsonGet();
 		String accountJson = accountJsonGet.JsonGet();
 		if(accountJson.toLowerCase().equals("null")||accountJson.equals(null))
 		{
-
-			return null;
+			pds.setFlag(1);
+			String[] retn=new String[1];
+			retn[0]="empty_null";
+			return retn;
 		}else{
+		pds.setFlag(0);
 		JsonReader reader=Json.createReader(new StringReader(accountJson));
 		JsonObject json=reader.readObject();
 		totalAccountNumber=Integer.parseInt(json.getString("totalNumOfAcc"));

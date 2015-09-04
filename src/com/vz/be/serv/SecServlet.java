@@ -62,16 +62,23 @@ public class SecServlet extends HttpServlet {
 		
 			try {
 				CustomerInfoExtractor cie=new CustomerInfoExtractor();
+				System.out.println("here");
 			} catch (SQLException e) {
+				System.out.println("catch me!!");
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	
 		System.out.println("dsda");
-
+		int flag=pds.getFlag();
 		PrintWriter out=response.getWriter();
 		HttpSession session=request.getSession();		
-		session.setAttribute("Success", "Bills Generated Successfully"+date1);
+		if (flag==0){
+			session.setAttribute("Success", "Bills Generated Successfully "+date1);
+		}
+		else if (flag==1){
+			session.setAttribute("Success", "No accounts found for "+date1);
+		}
 		System.out.println("success!!!!!");
 		response.sendRedirect("index.jsp");
 			

@@ -31,10 +31,12 @@ public class CustomerInfoExtractor {
 	public CustomerInfoExtractor() throws SQLException {
 		SQLHelper sqlHelp = new SQLHelper();
 		AccountParser ap = new AccountParser();
-		if(ap.account().equals(null)){
-			
-		}else{
 		String arr[] = ap.account();
+		if(arr[0].equals("empty_null")){
+			System.out.println("null");
+			return;
+		}else{
+		
 		int tAccounts=ap.getTotalAccountNumber();
 		System.out.println(arr.length);
 		portfolioDateStore pds=new portfolioDateStore();
