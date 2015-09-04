@@ -45,7 +45,7 @@
 <table id="selecttable">
 <tr>
 <td align="center">Select The Portfolio</td>
-<td><select name="portfolio" id="portfolio" style="width: 200px;" class="form-control">
+<td><select name="portfolio" id="portfolio" style="width: 200px;" class="form-control" required="required">
 <option value="" disabled selected>Select Portfolio</option>
 <option  value="cmb" >CMB</option>
 <option  value="ves" >VES</option>
@@ -58,7 +58,7 @@
 <td align="center">
 Enter Date</td>
 <td>
-<input type="text" name="date"> 
+<input type="text" name="date" required="required"> 
 <!-- <input type="date" name="date" id="datepicker" />  -->
 </td>
 </tr>
