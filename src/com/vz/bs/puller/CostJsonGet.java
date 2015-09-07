@@ -31,7 +31,7 @@ public class CostJsonGet {
 		//id="b1001";
 		ClientConfig config = new ClientConfig();
 		Client client = ClientBuilder.newClient(config);
-		WebTarget target = client.target("http://localhost:8080/PCatServiceCatalog")
+		WebTarget target = client.target("http://localhost:8080/PCatServiceCatalogue")
 				.path("api").path("CostSender").queryParam("id", id);
 		// getting String data
 		jsonString = target.request(MediaType.TEXT_PLAIN).get(String.class);
