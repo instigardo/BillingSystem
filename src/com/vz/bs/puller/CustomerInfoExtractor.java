@@ -68,8 +68,8 @@ public class CustomerInfoExtractor {
 					"fname")
 					+ " "
 					+ json.getJsonObject("customerdetails").getString("lname");
-			infoArray[1] = json.getJsonObject("customerdetails").getString(
-					"contactnumber");
+			infoArray[1] = json.getJsonObject("customerdetails").getInt(
+					"contactnumber")+"";
 			infoArray[2] = json.getJsonObject("customerdetails")
 					.getJsonObject("connectionaddress").getString("streetname")
 					+ ", \n"
@@ -87,8 +87,8 @@ public class CustomerInfoExtractor {
 					+ ", \n"
 					+ json.getJsonObject("customerdetails")
 							.getJsonObject("connectionaddress").get("zipcode");
-			infoArray[3] = json.getJsonObject("customerdetails").getString(
-					"customerid");
+			infoArray[3] = json.getJsonObject("customerdetails").getInt(
+					"customerid")+"";
 			infoArray[4] = json.getJsonObject("customerdetails").getString(
 					"billstartdate");
 
@@ -109,9 +109,9 @@ infoArray[10] = re.getTotalAmount() + "";
 
 
 			if (be.isNewCustomer()) {
-				sqlHelp.EXEC("bill_details", infoArray[3] + ",'"+ jsonString + "'," + " null ,"+ Double.parseDouble(infoArray[10]) + ",to_date(sysdate,'DD/MON/YYYY'),null,null");
+				sqlHelp.EXEC_bill_details("bill_details",infoArray[3], jsonString , "null" , Double.parseDouble(infoArray[10]) , "10-SEP-2015","null","null");
 			} else {
-				sqlHelp.EXEC("bill_details_update",  infoArray[3]+",'" + jsonString+ "'," + Double.parseDouble((infoArray[10])) + ", to_date(sysdate,'DD/MON/YYYY')");
+				sqlHelp.EXEC_bill_details_update("bill_details_update", infoArray[3], jsonString, Double.parseDouble((infoArray[10])) , " 10-SEP-2015");
 			}
 			
 			BillFormatter billFormatter = new BillFormatter(infoArray);
@@ -125,7 +125,7 @@ infoArray[10] = re.getTotalAmount() + "";
 				pBill=rs.getString("bill_generated");
 				pBill1=rs.getString("previous_bill_1");
 			}
-			sqlHelp.EXEC("bill_cycle_update1", infoArray[3]+",'"+billString+"',"+"'"+pBill+"',"+"'"+pBill1+"'");
+			sqlHelp.EXEC_bill_cycle_update1("bill_details_update1", infoArray[3],billString,pBill,pBill1);
 
 			/* update bill amounts in payment_summary table */
 			sqlHelp.UPDATE("payments_summary", "billed_amount="+infoArray[10]+",billing_date='"+billingDate+"',amount_received="+0, "account_number="+accno);

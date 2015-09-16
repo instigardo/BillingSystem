@@ -90,7 +90,7 @@ public class RecentBill extends HttpServlet {
         		port="cmb";
         	if(portfolio.equals("vzw"))
         		port="vzw";
-        	 sql= " select * from bill_cycle_summary where bill_cycle_date< to_date(sysdate) and bill_cycle_date>to_date(sysdate-4) and portfolio=?"; 
+        	 sql= " select * from bill_cycle_summary where  portfolio=?"; 
             //sql = "Select * from COUNTRY where code = ?"; 
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, port.trim());

@@ -1,5 +1,6 @@
 package com.vz.bs.helper;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,19 +17,72 @@ public class SQLHelper {
 		con = cg.getConnection();
 	}
 
-	public int EXEC(String pName, String parameters) {
-		String s = "exec " + pName + " ( " + parameters + ")";
-		//System.out.println(s);
+	public boolean EXEC_bill_details(String pName, String accno, String billInput, String billGen, double billAmt, String dateTS, String P1, String P2) {
+		//	String s = "exec " + pName + " ( " + parameters + ")";
+			String s1="begin "+ pName+" (?,?,?,?,?,?,?); end;";
+			
+			System.out.println(s1);
+			try {
+				CallableStatement st = con.prepareCall(s1);
+				st.setString(1, accno);
+				st.setString(2, billInput);
+				st.setString(3, billGen);
+				st.setDouble(4, billAmt);
+				st.setString(5, dateTS);
+				st.setString(6, P1);
+				st.setString(7, P2);
+				boolean i = st.execute();
+				return i;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return false;
+			
+		}
+	
+	
+	public boolean EXEC_bill_details_update(String pName, String accno, String billInput, double billAmt, String dateTS) {
+			//	String s = "exec " + pName + " ( " + parameters + ")";
+			String s1="begin "+ pName+" (?,?,?,?); end;";
+			
+			System.out.println(s1);
+			try {
+				CallableStatement st = con.prepareCall(s1);
+				st.setString(1, accno);
+				st.setString(2, billInput);
+				st.setDouble(3, billAmt);
+				st.setString(4, dateTS);
+				
+				
+				boolean i = st.execute();
+				return i;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return false;
+		}
+
+	
+	public boolean EXEC_bill_cycle_update1(String pName, String accno, String billGen, String p1, String p2) {
+		//	String s = "exec " + pName + " ( " + parameters + ")";
+		String s1="begin "+ pName+" (?,?,?,?); end;";
+		
+		System.out.println(s1);
 		try {
-			Statement st = con.createStatement();
-			int i = st.executeUpdate(s);
+			CallableStatement st = con.prepareCall(s1);
+			st.setString(1, accno);
+			st.setString(2, billGen);
+			st.setString(3, p1);
+			st.setString(4, p2);
+			
+			
+			boolean i = st.execute();
 			return i;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return false;
 	}
-
 	
 	public ResultSet SELECT(String tName, String cName, String where) {
 		if (where == null || where == "") {

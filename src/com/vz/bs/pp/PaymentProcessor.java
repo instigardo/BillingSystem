@@ -37,11 +37,11 @@ public class PaymentProcessor {
 			JsonObjectBuilder paymentDB=Json.createObjectBuilder();
 
 			while (rs.next()) {
-				int accountNumber=rs.getInt("account_number");
-				System.out.println("here");
-				int billedAmount=rs.getInt("billed_amount");
-				int amountReceived=rs.getInt("amount_received");
-				int outstandingAmount=rs.getInt("outstanding_amount");
+				int accountNumber=Integer.parseInt(rs.getString("account_number"));
+				//System.out.println("here");
+				double billedAmount=Double.parseDouble(rs.getString("billed_amount"));
+				double amountReceived=Double.parseDouble(rs.getString("amount_received"));
+				double outstandingAmount=Double.parseDouble(rs.getString("outstanding_amount"));
 				Date paymentDate=rs.getDate("payment_date");
 				String paymentDateString;
 				if(rs.wasNull())

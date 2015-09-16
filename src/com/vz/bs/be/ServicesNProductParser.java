@@ -28,7 +28,7 @@ public class ServicesNProductParser {
 		return productsSubTotal;
 	}
 	public JsonArray Services() {
-		JsonArray servicesArray;
+		JsonArray servicesArray ;
 		JsonArrayBuilder servicesArray1=Json.createArrayBuilder();
 		int arrayLength;
 		String serviceName;
@@ -38,21 +38,24 @@ public class ServicesNProductParser {
 		String costS;
 		CostJsonGet cjGet=new CostJsonGet();
 		String servicesJson = profileJsonGet.JsonGet();
-		//System.out.println(servicesJson);
+		System.out.println(servicesJson);
 		JsonReader reader = Json.createReader(new StringReader(servicesJson));
 		JsonObject json = reader.readObject();
-		servicesArray = json.getJsonObject("existingsnp").getJsonArray("services");
-		if(servicesArray.equals(null))
+		
+//		String servicesNullCheck = json.getJsonObject("existingsnp").getString("services");
+/*		if(servicesNullCheck.equals(null)||servicesNullCheck.equals("null"))
 		{
 			JsonObjectBuilder jobj=Json.createObjectBuilder(); 
 			jobj.add("name","no Service");
 			jobj.add("price",0);
 			JsonObject jo=jobj.build();
 			servicesSubTotal=0;
-			servicesArray1.add(jo).build();
-			return servicesArray;
+			servicesArray1.add(jo);
+		
 		}else
-		{
+		{*/
+		
+			servicesArray = json.getJsonObject("existingsnp").getJsonArray("services");
 		System.out.println(servicesArray.toString());
 		arrayLength = servicesArray.toArray().length;
 		System.out.println(arrayLength);
@@ -74,15 +77,16 @@ public class ServicesNProductParser {
 			servicesSubTotal=servicesSubTotal+servicePrice;
 			servicesArray1.add(jo);
 		}
+	//	}
 		//servicesArray1.build();
 		servicesArray=servicesArray1.build();
 		
 		return servicesArray;
 	}
-	}
+	
 	public JsonArray AdditionalServices() {
 		String portfolio;
-		JsonArray productsArray;
+		JsonArray productsArray = null;
 		JsonArray vesArray;
 		
 		JsonArrayBuilder productsArray1=Json.createArrayBuilder();
@@ -97,25 +101,28 @@ public class ServicesNProductParser {
 		JsonReader reader = Json.createReader(new StringReader(productsJson));
 		JsonObject json = reader.readObject();
 		portfolio=json.getString("lineofbusiness");
-		productsArray = json.getJsonObject("existingsnp").getJsonArray("products");
-		if(productsArray.equals(null))
+		/*String productsANullCheck = json.getJsonObject("existingsnp").getString("products");
+
+		if(productsANullCheck.equals(null)||productsANullCheck.equals("null"))
 		{
 			JsonObjectBuilder jobj=Json.createObjectBuilder(); 
 			jobj.add("name","no Service");
 			jobj.add("price",0);
 			JsonObject jo=jobj.build();
 			productsSubTotal=0;
-			productsArray1.add(jo).build();
-			return productsArray;
+			productsArray1.add(jo);
+
 		}else
-		{
+		{*/
+			productsArray = json.getJsonObject("existingsnp").getJsonArray("products");
+
 		arrayLength = productsArray.toArray().length;
 		for (int i = 0; i < arrayLength; i++) {
 			productsName = productsArray.getJsonObject(i).getString("productname");
-			productsId = productsArray.getJsonObject(i).getString("productcode");
+			productsId = "p1005";//productsArray.getJsonObject(i).getString("productcode");
 			cjGet.setId(productsId);
 			costS=cjGet.costGet();
-			productsPrice=Double.parseDouble(costS);
+			productsPrice=0;//Double.parseDouble(costS);
 			JsonObjectBuilder jobj=Json.createObjectBuilder(); 
 			jobj.add("name",productsName);
 			jobj.add("price",productsPrice);
@@ -123,6 +130,7 @@ public class ServicesNProductParser {
 			productsSubTotal=productsSubTotal+productsPrice;
 			productsArray1.add(jo);
 		}
+		
 			if(portfolio.equals("ves")){
 				vesVAT=0;
 				vesDiscount=0;
@@ -178,11 +186,11 @@ public class ServicesNProductParser {
 					JsonObject jo3=jobj3.build();
 					productsArray1.add(jo3);
 				}
-
+	//	}
 		productsArray=productsArray1.build();
 		return productsArray;
 		}
-	}
+	
 
 
 	  public double getVesVAT() {
