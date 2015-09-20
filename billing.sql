@@ -1,7 +1,74 @@
 --------------------------------------------------------
 --  File created - Friday-August-28-2015   
 --------------------------------------------------------
+ <!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  
+    <head>
+      <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+      <script type="text/javascript">
+        google.load("visualization", "1", {packages:["geochart"]});
+        google.setOnLoadCallback(drawRegionsMap);
+		
+	// Decoding table: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 	
+ var reg_array=['US','BR','IN' ];
+        function drawRegionsMap() {
+ 	
+          var data = google.visualization.arrayToDataTable([
+            ['Country', 'Popularity'],
+            ['United States', 'United States: 300'],
+            ['Brazil', 'Brazil: 400'],
+            ['India', 'India: 500']
+          ]);
+  
+          var options = {dataMode: 'regions'};
+      function myClickHandler(){
+          var selection = chart.getSelection();
+          var codex = '';
+          for (var i = 0; i < selection.length; i++) {
+              var item = selection[i];
+              var codex=item.row;
+          }
+		  if(codex!='')
+		       drawRMap(codex);
+	  }
+          var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+       google.visualization.events.addListener(chart, 'select', myClickHandler);
+          chart.draw(data, options);
+    }
+     function drawRMap(codex) {
+	
+		var region=reg_array[codex];
+		//alert (region);
+        var data = google.visualization.arrayToDataTable([
+          ['State', 'Popularity'],
+ 		  ['US-AL', '300'],
+          ['US-MT', '300'],
+		  ['IN-HP', 'Himachal Pradesh: 300'],
+		  ['IN-DL', 'Delhi: 300'],
+  		  ['IN-TN', 'Tamil Nadu : 300']
 
+        ]);
+
+        var options = { region: region ,resolution: 'provinces', domain: 'IN'};
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
+
+		
+      }
+      </script>
+      
+      
+    </head>
+    <body>
+      <div id="regions_div" style="width: 900px; height: 500px; float:left"></div>
+            <div style="width: auto; height: auto; float:right"><input type="button" onclick="drawRegionsMap()" value="Show World Map"  ></div>
+    </body>
+  
+  </html>
+-->
 
 --------------------------------------------------------
 --  DDL for Sequence SEQ_1
