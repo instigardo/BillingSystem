@@ -1,3 +1,25 @@
+-startup
+plugins/org.eclipse.equinox.launcher_1.3.0.v20140415-2008.jar
+--launcher.library
+plugins/org.eclipse.equinox.launcher.win32.win32.x86_64_1.1.200.v20150204-1316
+-product
+org.eclipse.epp.package.jee.product
+--launcher.defaultAction
+openFile
+--launcher.XXMaxPermSize
+256M
+-showsplash
+org.eclipse.platform
+--launcher.XXMaxPermSize
+256m
+--launcher.defaultAction
+openFile
+--launcher.appendVmargs
+-vmargs
+-Dosgi.requiredJavaVersion=1.8
+-Xms400m
+-Xmx1024m
+
 --------------------------------------------------------
 --  File created - Friday-August-28-2015   
 --------------------------------------------------------
