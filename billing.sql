@@ -1,3 +1,4 @@
+/**Hello**/
 -startup
 plugins/org.eclipse.equinox.launcher_1.3.0.v20140415-2008.jar
 --launcher.library
